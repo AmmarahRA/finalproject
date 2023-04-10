@@ -68,13 +68,6 @@ State <- health_data$X_STATE
 health_data$treatment <- case_when(State == 21 ~ 1, 
                                    State == 3 ~ 0 )
 
-lm(GENHLTH ~ treatment + time + (time*treatment), data = health_data)
-library(plm)
-fit_plm <- plm(l_homicide ~ post, 
-               data = df, 
-               index = c("state", "year"), 
-               model = "within", 
-               effect = "twoways")
 
 
 
