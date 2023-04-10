@@ -1,4 +1,4 @@
-pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, data.table, gdata, fixest)
+pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, data.table, gdata, fixest, psych)
 
 final.data <- read.delim('data/output/acs_medicaid.txt')
 
@@ -39,30 +39,10 @@ fig2 <- final.data2 %>% group_by(year) %>%
 
 fig2
 
-fig2 <- final.data2 %>% filter(year == '2012' | year == '2019' & !is.na(expand_ever)) %>%
-  ggplot(aes(x = insured)) +
-  geom_bar(aes(fill = as.factor(perc_dir)), position = "dodge")
+#summary stats
 
-
-
-
-
-fig_2 <- ggplot(tab_2, aes(x = Year)) + 
-  geom_line(aes(Year, avg_price), colour = "red") + 
-  geom_line(aes(Year, avg_tax), colour = 'blue') +
-  labs(title = "Average Price and Tax from 1970-2018", x = "Year", y = "Average Price and Tax") +
-  annotate("text", x = 2016, y = 7.2, label = "Average Price", colour = "black", size = 3) +
-  annotate("text", x = 2016, y = 3.2, label = "Average Tax", colour = "black", size = 3) +
-  theme_bw()
-  
-  
-ratings.fig <- final.data2 %>% filter(year == '2009'| year == '2012'| year == '2015' & !is.na(Star_Rating)) %>%
-  ggplot(aes(x = as.factor(Star_Rating))) +
-  geom_bar(aes(fill = as.factor(year)), position = "dodge") +
-  scale_fill_grey() + 
-  labs(title = "Distribution of Star Ratings", x = "Star Ratings", y = "Count of Plans", fill="Year") +
-  theme_bw()  
-  
+sum_stat <- describe(final.data[ , c('ins_employer', 'ins_direct', 'ins_medicaid', 'ins_medicare', 'uninsured')])
+sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
 
 
 
@@ -72,43 +52,3 @@ ratings.fig <- final.data2 %>% filter(year == '2009'| year == '2012'| year == '2
 
 
 
-
-
-
-
-
-
-
-
-
-#final.data %>% group_by(expand_year, State) %>% filter(!is.na(expand_ever)) %>%
-  
-
-
-share.fig <- filtered_data2 %>% 
-  ggplot(aes(x = as.factor(year), y = avg_share, group=1)) + 
-  stat_summary(fun.y = "mean", geom = "line", na.rm = TRUE) 
-
-ggplot(final.data, aes(x = year)) +
-  geom_bar(aes(fill = insured)) +
-  scale_y_continuous(labels = percent_format())
-
-final.data %>% filter(!is.na(expand_ever)) %>%
-  group_by(expand_year) %>% 
-  select(expand_year,insured, uninsured, adult_pop) %>% 
-  ggplot(aes(x = as.factor(expand_year))) +
-  geom_bar(aes(fill = insured), position = "dodge") +
-  scale_fill_grey()
-  
-
-ggplot(final.data, aes(x = expand_year)) +
-  geom_line(aes(expand_year, ins_employer), colour = "red") +
-  
-
-fig_2 <- ggplot(tab_2, aes(x = Year)) + 
-    geom_line(aes(Year, avg_price), colour = "red") + 
-    geom_line(aes(Year, avg_tax), colour = 'blue') +
-    labs(title = "Average Price and Tax from 1970-2018", x = "Year", y = "Average Price and Tax") +
-    annotate("text", x = 2016, y = 7.2, label = "Average Price", colour = "black", size = 3) +
-    annotate("text", x = 2016, y = 3.2, label = "Average Tax", colour = "black", size = 3) +
-    theme_bw()
