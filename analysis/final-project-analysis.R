@@ -25,7 +25,7 @@ fig1
 
 #share of insurance distribution 
 
-fig2 <- final.data %>% group_by(year) %>% 
+#fig2 <- final.data %>% group_by(year) %>% 
   summarise(avg_dir = mean(perc_dir),
             avg_empl = mean(perc_empl),
             avg_mcaid = mean(perc_mcaid),
@@ -43,27 +43,27 @@ fig2 <- final.data %>% group_by(year) %>%
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
 
-fig2
+#fig2
 
-final.data %>% group_by(year) %>% 
+fig2 <- final.data %>% group_by(year) %>%
   summarise(avg_dir = mean(perc_dir),
             avg_empl = mean(perc_empl),
             avg_mcaid = mean(perc_mcaid),
             avg_ins = mean(perc_ins)) %>%
-  ggplot(aes(x = year)) +
-  geom_line(aes(x = year, y = avg_dir), colour = "blue") +
-  geom_line(aes(x = year, y = avg_empl), colour = "red") +
-  geom_line(aes(x = year, y = avg_mcaid), colour = "black") +
-  geom_line(aes(x = year, y = avg_ins), colour = "green") +
-  labs(title = "Share of Insurance Distribution ", x = "Year", y = "Percentage Insured") 
-
-
-  annotate("text", x = 2018, y = 7.2, label = "Direct Purchase", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 70.2, label = "Employer Provided", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 18.2, label = "Medicaid", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 80.2, label = "Total Insured", colour = "black", size = 3) +
+  pivot_longer(cols = c(avg_dir, avg_empl, avg_mcaid, avg_ins),
+               names_to = "category",
+               values_to = "percentage") %>%
+  ggplot(aes(x = year, y = percentage, fill = category)) +
+  geom_col(position = "dodge", width = 0.8) +
+  labs(title = "Share of Insurance Distribution ", x = "Year",
+       y = "Percentage Insured", fill = "Insurance Type") +
+  scale_fill_discrete(name = "Insurance Type",
+                      breaks = c('avg_dir', 'avg_empl', 'avg_mcaid', 'avg_ins'),
+                      labels = c("Direct Purchase", "Employer Provided", "Medicaid", "Total Insured")) +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5)) 
+  theme(plot.title = element_text(hjust = 0.5))  
+
+fig2
 
 #health status before and after medicaid
 
