@@ -20,7 +20,7 @@ fig1
 
 #share of insurance distribution 
 
-fig2 <- final.data2 %>% group_by(year) %>% 
+fig2 <- final.data %>% group_by(year) %>% 
   summarise(avg_dir = mean(perc_dir),
             avg_empl = mean(perc_empl),
             avg_mcaid = mean(perc_mcaid),
@@ -90,5 +90,5 @@ health_stats <- data.frame(HLTHPLN1 = c("Yes", "No", "Yes", "No"),
                                           avg_health1$avg_health[1], avg_health4$avg_health[1]))
 
 
-
+save.image("finalproject.Rdata")
 
