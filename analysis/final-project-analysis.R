@@ -61,7 +61,7 @@ fig4<- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' | HLTHPLN1 == '2'
   geom_bar(aes(fill = as.factor(HLTHPLN1)), position = "dodge") +
   scale_fill_discrete(name = "Health Coverage",
                       labels = c("Yes", "No")) +
-  labs(title = "Self Reported Health Status and Health Coverage", 
+  labs(title = "Self Reported Health Status and Health Care Coverage", 
        x = "Health Status Rating",
        y = "Number of People") + 
   theme_bw() +
