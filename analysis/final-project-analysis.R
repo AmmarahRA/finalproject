@@ -5,12 +5,17 @@ final.data <- read.delim('data/output/acs_medicaid.txt')
 #Data Summary 
 final.data <- final.data %>% mutate(insured = ins_employer + ins_direct +
                                                     ins_medicaid + ins_medicare)
+final.data <- final.data %>% mutate(perc_dir = (ins_direct/insured)*100,
+                                    perc_empl = (ins_employer/insured)*100,
+                                    perc_mcaid = (ins_medicaid/insured)*100,
+                                    perc_ins = (insured/adult_pop)*100,
+                                    perc_unins = (uninsured/adult_pop)*100)
 
 #share of uninsured population amongst adult population 
 
 fig1 <- final.data %>% group_by(year) %>% 
-  summarise(avgs_unins = mean((uninsured/adult_pop)*100)) %>%
-  ggplot(aes(x = year, y = avgs_unins)) + 
+  summarise(avg_unins = mean(perc_unins)) %>%
+  ggplot(aes(x = year, y = avg_unins)) + 
   geom_line() +
   labs(title = "Share of Uninsured Population", x = "Year", y = "Percentage Uninsured") +
   theme_bw() +
@@ -24,7 +29,7 @@ fig2 <- final.data %>% group_by(year) %>%
   summarise(avg_dir = mean(perc_dir),
             avg_empl = mean(perc_empl),
             avg_mcaid = mean(perc_mcaid),
-            avg_ins = mean((insured/adult_pop)*100)) %>%
+            avg_ins = mean(perc_ins)) %>%
   ggplot(aes(x = year)) +
   geom_line(aes(x = year, y = avg_dir), colour = "blue") +
   geom_line(aes(x = year, y = avg_empl), colour = "red") +
@@ -39,6 +44,26 @@ fig2 <- final.data %>% group_by(year) %>%
   theme(plot.title = element_text(hjust = 0.5)) 
 
 fig2
+
+final.data %>% group_by(year) %>% 
+  summarise(avg_dir = mean(perc_dir),
+            avg_empl = mean(perc_empl),
+            avg_mcaid = mean(perc_mcaid),
+            avg_ins = mean(perc_ins)) %>%
+  ggplot(aes(x = year)) +
+  geom_line(aes(x = year, y = avg_dir), colour = "blue") +
+  geom_line(aes(x = year, y = avg_empl), colour = "red") +
+  geom_line(aes(x = year, y = avg_mcaid), colour = "black") +
+  geom_line(aes(x = year, y = avg_ins), colour = "green") +
+  labs(title = "Share of Insurance Distribution ", x = "Year", y = "Percentage Insured") 
+
+
+  annotate("text", x = 2018, y = 7.2, label = "Direct Purchase", colour = "black", size = 3) +
+  annotate("text", x = 2018, y = 70.2, label = "Employer Provided", colour = "black", size = 3) +
+  annotate("text", x = 2018, y = 18.2, label = "Medicaid", colour = "black", size = 3) +
+  annotate("text", x = 2018, y = 80.2, label = "Total Insured", colour = "black", size = 3) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) 
 
 #health status before and after medicaid
 
