@@ -9,39 +9,39 @@ library(plyr)
 
 year_2011 <- read.xport('data/input/LLCP2011.XPT')
 year_2011<- filter(year_2011, CHILDREN == 88 & INCOME2<= 5) %>% 
-  select(GENHLTH,INCOME2, X_STATE) 
+  select(GENHLTH,INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
 year_2012<- read.xport('data/input/LLCP2012.XPT')
 year_2012<- filter(year_2012, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH,INCOME2, X_STATE) 
+  select(GENHLTH,INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
 year_2013<- read.xport('data/input/LLCP2013.XPT')
 year_2013<- filter(year_2013, CHILDREN == 88 & INCOME2<= 5  & X_AGE65YR == 1) %>% 
-  select(GENHLTH,INCOME2, X_STATE) 
+  select(GENHLTH,INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
-year_2014<- read.xport('data/input/LLCP2014.XPT ')
+year_2014<- read.xport('data/input/LLCP2014.XPT_')
 year_2014<- filter(year_2014, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT)  
+  select(GENHLTH, INCOME2, X_STATE, HLTHPLN1, MEDCOST)  
 
-year_2015<- read.xport('data/input/LLCP2015.XPT ')
+year_2015<- read.xport('data/input/LLCP2015.XPT_')
 year_2015<- filter(year_2015, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT) 
+  select(GENHLTH, INCOME2, X_STATE,HLTHPLN1, MEDCOST) 
 
-year_2016<- read.xport('data/input/LLCP2016.XPT ')
+year_2016<- read.xport('data/input/LLCP2016.XPT_')
 year_2016 <- filter(year_2016, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT) 
+  select(GENHLTH, INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
-year_2017<- read.xport('data/input/LLCP2017.XPT ')
+year_2017<- read.xport('data/input/LLCP2017.XPT_')
 year_2017 <- filter(year_2017, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT) 
+  select(GENHLTH, INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
-year_2018<- read.xport('data/input/LLCP2018.XPT ')
+year_2018<- read.xport('data/input/LLCP2018.XPT_')
 year_2018 <- filter(year_2018, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1) %>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT) 
+  select(GENHLTH, INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
-year_2019<- read.xport('data/input/LLCP2019.XPT ')
+year_2019<- read.xport('data/input/LLCP2019.XPT_')
 year_2019 <- filter(year_2019, CHILDREN == 88 & INCOME2<= 5 & X_AGE65YR == 1)%>% 
-  select(GENHLTH, INCOME2, X_STATE, X_CHLDCNT, NUMADULT) 
+  select(GENHLTH, INCOME2, X_STATE, HLTHPLN1, MEDCOST) 
 
 #Kentucky = 21 , Georgia = 3 
 
@@ -67,7 +67,7 @@ health_data <- rbind.fill(pre_treatment, post_treatment)
 State <- health_data$X_STATE
 health_data$treatment <- case_when(State == 21 ~ 1, 
                                    State == 3 ~ 0 )
-
+write_tsv(health_data,'data/output/health_data.txt')
 
 
 
