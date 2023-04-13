@@ -74,7 +74,7 @@ year_2008_new<- year_2008_new %>% dplyr::rename(HLTHPLN1 = HLTHPLAN)
 year_2009_new<- year_2009_new %>% dplyr::rename(HLTHPLN1 = HLTHPLAN)
 year_2010_new<- year_2010_new %>% dplyr::rename(HLTHPLN1 = HLTHPLAN)
 
-pre_treatment <- rbind(year_2008_new, year_2009_new, year_2010_new, year_2011_new, year_2012_new,year_2013_new)
+pre_treatment <- rbind(year_2011_new, year_2012_new,year_2013_new)
 post_treatment <- rbind(year_2014_new, year_2015_new, year_2016_new, year_2017_new, year_2018_new, year_2019_new)
 
 pre_treatment$time <- 0
