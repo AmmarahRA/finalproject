@@ -107,16 +107,21 @@ health_stats <- data.frame(Medicaid = c("Yes", "No"),
 # difference between medicare expanded and not expanded states
 tab_ne <- final.data %>% filter(expand_ever == 'FALSE') %>%
   group_by(State) %>% summarise(avg_ins = mean(perc_ins),
-                                avg_unins = mean(perc_unins)) %>%
-  dplyr::select(State, avg_ins, avg_unins)
+                                avg_unins = mean(perc_unins),
+                                avg_dir = mean(perc_dir),
+                                avg_empl = mean(perc_empl),
+                                avg_mcaid = mean(perc_mcaid)) %>%
+  dplyr::select(State, avg_ins, avg_unins, avg_dir, avg_empl, avg_mcaid)
 tab_ne <- rbind(tab_ne, data.frame(State='Total Average', t(colMeans(tab_ne[, -1]))))
-
 tab_ne
           
 tab_e <- final.data %>% filter(expand_ever == 'TRUE') %>%
   group_by(State) %>% summarise(avg_ins = mean(perc_ins),
-                                avg_unins = mean(perc_unins)) %>%
-  dplyr::select(State, avg_ins, avg_unins)
+                                avg_unins = mean(perc_unins),
+                                avg_dir = mean(perc_dir),
+                                avg_empl = mean(perc_empl),
+                                avg_mcaid = mean(perc_mcaid)) %>%
+  dplyr::select(State, avg_ins, avg_unins, avg_dir, avg_empl, avg_mcaid)
 tab_e <- rbind(tab_e, data.frame(State='Total Average', t(colMeans(tab_e[, -1]))))
 tab_e
 
