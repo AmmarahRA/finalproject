@@ -24,8 +24,9 @@ load("finalproject.Rdata")
 
 # Data
 
-\indent This project is looking into the effect of health insurance on health outcomes to answer the question, "does health insurance improve health?" It is using annual survey data on general health trends in USA from the Behavioral Factor Surveillance System (BFRS). In particular, it is using the self-reported health status (GENHLTH) as an indicator of health with a rating of '1' corresponding to 'excellent health' and '5' to 'poor health' while a rating of '7' indicated people who were unsure of their health status. It is using data from 2011, 2012 and 2013 as years before Medicaid expansion and data on years 2014-2019 for years after expansion. 
-\indent For insurance data, it is using data from United States Census Bureau for the years 2012-2019 on the different types health-care coverage being used by the population. It is also using data from the Kaiser Family Foundation to determine the states which have expanded Medicaid and which have not to better compare the impact of Medicaid expansion on health. 
+This project is looking into the effect of health insurance on health outcomes to answer the question, "does health insurance improve health?" It is using annual survey data on general health trends in USA from the Behavioral Factor Surveillance System (BFRS). In particular, it is using the self-reported health status (GENHLTH) as an indicator of health with a rating of '1' corresponding to 'excellent health' and '5' to 'poor health' while a rating of '7' indicated people who were unsure of their health status. It is using data from 2011, 2012 and 2013 as years before Medicaid expansion and data on years 2014-2019 for years after expansion. 
+
+For insurance data, it is using data from United States Census Bureau for the years 2012-2019 on the different types health-care coverage being used by the population. It is also using data from the Kaiser Family Foundation to determine the states which have expanded Medicaid and which have not to better compare the impact of Medicaid expansion on health. 
 
 # Data Analysis 
 
@@ -43,9 +44,9 @@ knitr::kable(sum_stat,
   kable_styling(latex_options = c("hold_position"))
 ```
 
-\indent Table \@ref(tab:table1) includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r table1$mean[1]` and the second-most coverage is provided by Medicaid with a mean of `r sum_stat$mean[3]` over the years and across all states. 
+Table \@ref(tab:table1) above includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r round(sum_stat$mean[1],2)` and the second-most coverage is provided by Medicaid with a mean of `r round(sum_stat$mean[3],2)` over the years and across all states. 
 
-\indent Table \@ref(tab:table2) is showing the average health status rating for a state with Medicaid expansion and without. The average self-reported health status rating is `r round(health_stats$avg_rating[1], 3)` with Medicaid expansion and `r round(health_stats$avg_rating[2], 3)` without Medicaid expansion. As the mean rating is lower by `r round(health_stats$avg_rating[2]-health_stats$avg_rating[1], 3)` for states with Medicaid expansion, it can be understood that Medicaid expansion corresponds to better self-reported health status.  
+Table \@ref(tab:table2) below is showing the average health status rating for a state with Medicaid expansion and without. The average self-reported health status rating is `r round(health_stats$avg_rating[1], 3)` with Medicaid expansion and `r round(health_stats$avg_rating[2], 3)` without Medicaid expansion. As the mean rating is lower by `r round(health_stats$avg_rating[2]-health_stats$avg_rating[1], 3)` for states with Medicaid expansion, it can be understood that Medicaid expansion corresponds to better self-reported health status.  
 
 ```{r, include=FALSE}
 health_stats
@@ -59,20 +60,36 @@ knitr::kable(health_stats,
              format.args = list(big.mark=","), 
              caption = "Average Health Status Ratings",
              booktabs = TRUE) %>%
-  kable_styling(latex_options = c("hold_position"))
+  kable_styling(latex_options = c("scale_down", "hold_position"))
 ```
+
+\newpage 
+
+The Figures \@ref(fig:fig1) and \@ref(fig:fig2) show the share of uninsured population and insured population respectively. As can be seen in Figure \@ref(fig:fig1), the share of uninsured population has fallen significantly from around 18.6% in 2012 to 11% in 2016, before increasing slightly to almost 12% in 2019. Figure \@ref(fig:fig2) shows share of insured population, on the other hand, has continued to increase from around 71% of the population in 2012 to around 78% in 2019, remaining fairly constant since 2016.
+
+Figure \@ref(fig:fig2) also shows the distribution of insurance coverage used by people. Employer-Provided Insurance makes up the largest share of insured population while Direct Purchase make up the smallest share from 2012 to 2019. However, the share of Medicaid has increased since 2014 while the share of Employer-Provided Insurance has started to reduce since 2013, before increase slightly till 2019. 
 
 ```{r fig1, include=T, eval=T, echo=F, fig.cap="Share of Uninsured Population"}
 fig1
 ```
 
+\newpage 
+
 ```{r fig2, include=T, eval=T, echo=F, fig.cap="Share of Insurance Distribution"}
 fig2
 ```
 
-```{r fig3, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status and Medicaid Expansion"}
+\newpage
+
+As shown in Figure \@ref(fig:fig3), more people reported a better rating for their health status after Medicaid expansion, compared to before. Approximately 100 more people rated their health status '1' which corresponds to 'excellent health' after 2014 while 150 more rated '2' corresponding to 'very good health' while around 200 more rated their health as '3', corresponding to 'good health' and around 400 more people rated their health as '4' or 'fair'. The figure also shows that around 50 more people have rated their health status as 'poor' after the Medicaid expansion. This could be due to the larger number of observations used for after Medicaid expansion compared to before. However, this increase is small compared to the increase in postive ratings. 
+
+```{r fig3, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status with(out) Medicaid Expansion"}
 fig3
 ```
+
+\newpage 
+
+Figure \@ref(fig:fig4) shows self-reported health status of the population based on whether they have any kind of health coverage, including health insurance, prepaid plans such as HMOs, or government plans such as Medicare, or Indian Health Service. The graph shows that people with some form of health coverage tend to report a better health status compared to those without health coverage, indicating that health insurance could improve the quality of health. While the graph also shows more people with health coverage reporting their health as '5' meaning 'poor', it could due to more people with pre-existing health conditions or poor health enrolling in health coverage plans compared to healthy people.
 
 ```{r fig4, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status and Health Care Coverage"}
 fig4
