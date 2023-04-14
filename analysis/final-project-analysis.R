@@ -43,6 +43,7 @@ fig2 <- final.data %>% group_by(year) %>%
                       labels = c("Direct Purchase", "Employer Provided", "Medicaid", "Total Insured")) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))  
+fig2
 
 #health status before and after medicaid
 
@@ -80,7 +81,7 @@ fig5<- health_data %>% filter(GENHLTH != '9' & MEDCOST != '9') %>%
   scale_fill_discrete(name = "Medicaid Expansion (2014)",
                       labels = c("Yes", "No")) +
   labs(title = "Share of People Unable to See Doctor due to Cost", 
-       x = " ",
+       x = "MEDCOST ",
        y = "Number of People") + 
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
@@ -93,20 +94,28 @@ sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
 
 #health status according to medicaid expansion and health plan
 
-avg_health1 <- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' & time == '0') %>% 
-  mutate(avg_health = mean(GENHLTH)) %>% select(HLTHPLN1, time, avg_health)
-avg_health2 <- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' & time == '1') %>% 
-  mutate(avg_health = mean(GENHLTH)) %>% select(HLTHPLN1, time, avg_health)
-avg_health3 <- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '2' & time == '0') %>% 
-  mutate(avg_health = mean(GENHLTH)) %>% select(HLTHPLN1, time, avg_health)
-avg_health4 <- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '2' & time == '1') %>% 
-  mutate(avg_health = mean(GENHLTH)) %>% select(HLTHPLN1, time, avg_health)
+obs_m <- as.numeric(count(avg_health1 %>% ungroup()))
+obs_nm <- as.numeric(count(avg_health2 %>% ungroup()))
 
-health_stats <- data.frame(HLTHPLN1 = c("Yes", "No", "Yes", "No"),
-                           Medicaid = c("Yes", "No", "No", "Yes"),
-                           avg_rating = c(avg_health2$avg_health[1], avg_health3$avg_health[1],
-                                          avg_health1$avg_health[1], avg_health4$avg_health[1]))
+avg_health1 <- health_data %>% filter(GENHLTH != '9' & time == '0') %>% 
+  mutate(avg_health = mean(GENHLTH),
+         sd_health = sd(GENHLTH),
+         ci_low = avg_health - (1.96 * sqrt(sd_health^2/(obs_nm-1))),
+         ci_high = avg_health + (1.96 * sqrt(sd_health^2/(obs_nm-1)))) %>% 
+  dplyr::select(time, avg_health, sd_health, ci_low, ci_high)
 
+avg_health2 <- health_data %>% filter(GENHLTH != '9' & time == '1') %>% 
+  mutate(avg_health = mean(GENHLTH),
+         sd_health = sd(GENHLTH),
+         ci_low = avg_health - (1.96 * sqrt(sd_health^2/(obs_m-1))),
+         ci_high = avg_health + (1.96 * sqrt(sd_health^2/(obs_m-1)))) %>% 
+  dplyr::select(time, avg_health, sd_health, ci_low, ci_high)
 
+health_stats <- data.frame(Medicaid = c("Yes", "No"),
+                           avg_rating = c(avg_health2$avg_health[1], avg_health1$avg_health[1]),
+                           sd_rating = c(avg_health2$sd_health[1], avg_health1$sd_health[1]),
+                           ci_low = c(avg_health2$ci_low[1], avg_health2$ci_low[1]),
+                           ci_high = c(avg_health2$ci_high[1], avg_health2$ci_high[1]))
+            
 save.image("finalproject.Rdata")
 
