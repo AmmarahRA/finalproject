@@ -1,6 +1,7 @@
 pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, data.table, gdata, fixest, psych)
 
 final.data <- read.delim('data/output/acs_medicaid.txt')
+health_data <- read.delim('data/output/health_data.txt')
 
 #Data Summary 
 final.data <- final.data %>% mutate(insured = ins_employer + ins_direct +
@@ -25,26 +26,6 @@ fig1
 
 #share of insurance distribution 
 
-#fig2 <- final.data %>% group_by(year) %>% 
-  summarise(avg_dir = mean(perc_dir),
-            avg_empl = mean(perc_empl),
-            avg_mcaid = mean(perc_mcaid),
-            avg_ins = mean(perc_ins)) %>%
-  ggplot(aes(x = year)) +
-  geom_line(aes(x = year, y = avg_dir), colour = "blue") +
-  geom_line(aes(x = year, y = avg_empl), colour = "red") +
-  geom_line(aes(x = year, y = avg_mcaid), colour = "black") +
-  geom_line(aes(x = year, y = avg_ins), colour = "green") +
-  labs(title = "Share of Insurance Distribution ", x = "Year", y = "Percentage Insured") +
-  annotate("text", x = 2018, y = 7.2, label = "Direct Purchase", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 70.2, label = "Employer Provided", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 18.2, label = "Medicaid", colour = "black", size = 3) +
-  annotate("text", x = 2018, y = 80.2, label = "Total Insured", colour = "black", size = 3) +
-  theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5)) 
-
-#fig2
-
 fig2 <- final.data %>% group_by(year) %>%
   summarise(avg_dir = mean(perc_dir),
             avg_empl = mean(perc_empl),
@@ -63,14 +44,12 @@ fig2 <- final.data %>% group_by(year) %>%
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))  
 
-fig2
-
 #health status before and after medicaid
 
 fig3<- health_data %>% filter(GENHLTH != '9') %>%
   ggplot(aes(x = as.factor(GENHLTH))) +
   geom_bar(aes(fill = as.factor(time)), position = "dodge") +
-  scale_fill_discrete(name = "Medicare Expansion (2014)",
+  scale_fill_discrete(name = "Medicaid Expansion (2014)",
                       labels = c("Before", "After")) +
   labs(title = "Self Reported Health Status and Medicaid Expansion", 
        x = "Health Status Rating",
@@ -92,6 +71,20 @@ fig4<- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' | HLTHPLN1 == '2'
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
 fig4
+
+#medical cost and health status
+
+fig5<- health_data %>% filter(GENHLTH != '9' & MEDCOST != '9') %>%
+  ggplot(aes(x = as.factor(MEDCOST))) +
+  geom_bar(aes(fill = as.factor(time)), position = "dodge") +
+  scale_fill_discrete(name = "Medicaid Expansion (2014)",
+                      labels = c("Yes", "No")) +
+  labs(title = "Share of People Unable to See Doctor due to Cost", 
+       x = " ",
+       y = "Number of People") + 
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) 
+fig5
 
 #summary stats of insurance
 
