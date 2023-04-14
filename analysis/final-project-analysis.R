@@ -73,20 +73,6 @@ fig4<- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' | HLTHPLN1 == '2'
   theme(plot.title = element_text(hjust = 0.5)) 
 fig4
 
-#medical cost and health status
-
-fig5<- health_data %>% filter(GENHLTH != '9' & MEDCOST != '9') %>%
-  ggplot(aes(x = as.factor(MEDCOST))) +
-  geom_bar(aes(fill = as.factor(time)), position = "dodge") +
-  scale_fill_discrete(name = "Medicaid Expansion (2014)",
-                      labels = c("Yes", "No")) +
-  labs(title = "Share of People Unable to See Doctor due to Cost", 
-       x = "MEDCOST ",
-       y = "Number of People") + 
-  theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5)) 
-fig5
-
 #summary stats of insurance
 
 sum_stat <- describe(final.data[ , c('ins_employer', 'ins_direct', 'ins_medicaid', 'ins_medicare', 'uninsured')])
@@ -112,6 +98,7 @@ avg_health2 <- health_data %>% filter(GENHLTH != '9' & time == '1') %>%
   dplyr::select(time, avg_health, sd_health, ci_low, ci_high)
 
 health_stats <- data.frame(Medicaid = c("Yes", "No"),
+                           obs = c(obs_m, obs_nm),
                            avg_rating = c(avg_health2$avg_health[1], avg_health1$avg_health[1]),
                            sd_rating = c(avg_health2$sd_health[1], avg_health1$sd_health[1]),
                            ci_low = c(avg_health2$ci_low[1], avg_health2$ci_low[1]),
