@@ -80,8 +80,8 @@ sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
 
 #health status according to medicaid expansion and health plan
 
-obs_m <- as.numeric(count(avg_health1 %>% ungroup()))
-obs_nm <- as.numeric(count(avg_health2 %>% ungroup()))
+obs_nm <- as.numeric(count(avg_health1 %>% ungroup()))
+obs_m <- as.numeric(count(avg_health2 %>% ungroup()))
 
 avg_health1 <- health_data %>% filter(GENHLTH != '9' & time == '0') %>% 
   mutate(avg_health = mean(GENHLTH),
