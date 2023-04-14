@@ -80,9 +80,6 @@ sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
 
 #health status according to medicaid expansion and health plan
 
-obs_nm <- as.numeric(count(avg_health1 %>% ungroup()))
-obs_m <- as.numeric(count(avg_health2 %>% ungroup()))
-
 avg_health1 <- health_data %>% filter(GENHLTH != '9' & time == '0') %>% 
   mutate(avg_health = mean(GENHLTH),
          sd_health = sd(GENHLTH),
@@ -97,12 +94,28 @@ avg_health2 <- health_data %>% filter(GENHLTH != '9' & time == '1') %>%
          ci_high = avg_health + (1.96 * sqrt(sd_health^2/(obs_m-1)))) %>% 
   dplyr::select(time, avg_health, sd_health, ci_low, ci_high)
 
+obs_nm <- as.numeric(count(avg_health1 %>% ungroup()))
+obs_m <- as.numeric(count(avg_health2 %>% ungroup()))
+
 health_stats <- data.frame(Medicaid = c("Yes", "No"),
                            obs = c(obs_m, obs_nm),
                            avg_rating = c(avg_health2$avg_health[1], avg_health1$avg_health[1]),
                            sd_rating = c(avg_health2$sd_health[1], avg_health1$sd_health[1]),
                            ci_low = c(avg_health2$ci_low[1], avg_health2$ci_low[1]),
                            ci_high = c(avg_health2$ci_high[1], avg_health2$ci_high[1]))
-            
+
+# difference between medicare expanded and not expanded states
+tab_ne <- final.data %>% filter(expand_ever == 'FALSE') %>%
+  group_by(State) %>% summarise(avg_ins = mean(perc_ins),
+                                avg_unins = mean(perc_unins)) %>%
+  dplyr::select(State, avg_ins, avg_unins)
+tab_ne
+          
+tab_e <- final.data %>% filter(expand_ever == 'TRUE') %>%
+  group_by(State) %>% summarise(avg_ins = mean(perc_ins),
+                                avg_unins = mean(perc_unins)) %>%
+  dplyr::select(State, avg_ins, avg_unins)
+tab_e
+
 save.image("finalproject.Rdata")
 

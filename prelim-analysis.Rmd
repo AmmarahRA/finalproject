@@ -26,6 +26,8 @@ load("finalproject.Rdata")
 
 This project is looking into the effect of health insurance on health outcomes to answer the question, "does health insurance improve health?" It is using annual survey data on general health trends in USA from the Behavioral Factor Surveillance System (BFRS). In particular, it is using the self-reported health status (GENHLTH) as an indicator of health with a rating of '1' corresponding to 'excellent health' and '5' to 'poor health' while a rating of '7' indicated people who were unsure of their health status. It is using data from 2011, 2012 and 2013 as years before Medicaid expansion and data on years 2014-2019 for years after expansion. 
 
+This is also using data for the state of Kentucky as the treatment variable as they have expanded Medicaid. The data has been lowered to only include people with annual income of $35,000 or less and people with no children to better study the impact of health insurance on low-income individuals. 
+
 For insurance data, it is using data from United States Census Bureau for the years 2012-2019 on the different types health-care coverage being used by the population. It is also using data from the Kaiser Family Foundation to determine the states which have expanded Medicaid and which have not to better compare the impact of Medicaid expansion on health. 
 
 # Data Analysis 
