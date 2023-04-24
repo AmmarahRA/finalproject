@@ -56,7 +56,7 @@ Table \@ref(tab:table1) above includes the summary statistics of the data on ins
 
 \newpage 
 
-Looking at the difference in average share of insured and uninsured in the population according to States can give a better understanding of insurance distribution and its impact on health. Table \@ref(tab:table3) includes a summary of the share of insurance of insurance distribution for States which have not expanded Medicaid and Table \@ref(tab:table4) shows a summary for the States that have expanded Medicaid since 2014. The share of insured people amongst Medicaid expanded states is higher at `r round(tab_e$avg_ins[40])` compared to `r round(tab_ne$avg_ins[13])` for states which not expanded Medicaid. This corresponds to better health ratings given by people in states with Medicaid expansion as shown in Table \@ref(tab:table2). 
+Looking at the difference in average share of insured and uninsured in the population according to States can give a better understanding of insurance distribution and its impact on health. Table \@ref(tab:table3) includes a summary of the share of insurance of insurance distribution for States which have not expanded Medicaid and Table \@ref(tab:table4) shows a summary for the States that have expanded Medicaid since 2014. The share of insured people amongst Medicaid expanded states is higher at `r round(tab_e$avg_ins[40], 2)`% compared to `r round(tab_ne$avg_ins[13], 2)`% for states which not expanded Medicaid. This corresponds to better health ratings given by people in states with Medicaid expansion as shown in Table \@ref(tab:table2). 
 
 ```{r, include=FALSE}
 tab_ne
