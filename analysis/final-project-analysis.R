@@ -18,10 +18,9 @@ fig1 <- final.data %>% group_by(year) %>%
   summarise(avg_unins = mean(perc_unins)) %>%
   ggplot(aes(x = year, y = avg_unins)) + 
   geom_line() + geom_point() + 
-  labs(title = "Share of Uninsured Population", x = "Year", y = "Percentage Uninsured") +
+  labs(x = "Year", y = "Percentage Uninsured") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
-
 fig1
 
 #share of insurance distribution 
@@ -35,8 +34,8 @@ fig2 <- final.data %>% group_by(year) %>%
                names_to = "category",
                values_to = "percentage") %>%
   ggplot(aes(x = year, y = percentage, fill = category)) +
-  geom_col(position = "dodge", width = 0.8) 
-  labs(title = "Share of Insurance Distribution ", x = "Year",
+  geom_col(position = "dodge", width = 0.8) +
+  labs(x = "Year",
        y = "Percentage Insured", fill = "Insurance Type") +
   scale_fill_discrete(name = "Insurance Type",
                       breaks = c('avg_dir', 'avg_empl', 'avg_mcaid', 'avg_ins'),
@@ -52,8 +51,7 @@ fig3<- health_data %>% filter(GENHLTH != '9') %>%
   geom_bar(aes(fill = as.factor(time)), position = "dodge") +
   scale_fill_discrete(name = "Medicaid Expansion (2014)",
                       labels = c("Before", "After")) +
-  labs(title = "Self Reported Health Status and Medicaid Expansion", 
-       x = "Health Status Rating",
+  labs(x = "Health Status Rating",
        y = "Number of People") + 
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
@@ -66,8 +64,7 @@ fig4<- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' | HLTHPLN1 == '2'
   geom_bar(aes(fill = as.factor(HLTHPLN1)), position = "dodge") +
   scale_fill_discrete(name = "Health Coverage",
                       labels = c("Yes", "No")) +
-  labs(title = "Self Reported Health Status and Health Care Coverage", 
-       x = "Health Status Rating",
+  labs( x = "Health Status Rating",
        y = "Number of People") + 
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
