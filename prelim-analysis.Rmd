@@ -48,7 +48,6 @@ knitr::kable(sum_stat,
              col.names=c("Observations", "Mean", "Standard Deviation", "Minimum", "Maximum"),
              format.args = list(big.mark=","), 
              caption = "Insurance Plan Summary Statistics", align = "c",
-             row
              booktabs = TRUE) %>%
   kable_styling(latex_options = c("hold_position"))
 ```
@@ -110,7 +109,7 @@ knitr::kable(health_stats,
   kable_styling(latex_options = c("scale_down", "hold_position"))
 ```
 
-The Figures \@ref(fig:fig1) and \@ref(fig:fig2) show the share of uninsured population and insured population respectively. As can be seen in Figure \@ref(fig:fig1), the share of uninsured population has fallen significantly from around 18.6% in 2012 to 11% in 2016, before increasing slightly to almost 12% in 2019. Figure \@ref(fig:fig2) shows share of insured population, on the other hand, has continued to increase from around 71% of the population in 2012 to around 78% in 2019, remaining fairly constant since 2016.
+The Figures \@ref(fig:fig1) and \@ref(fig:fig2) show the share of uninsured population and insured population respectively. As can be seen in Figure \@ref(fig:fig1), the share of uninsured population has fallen significantly from around 18.7% in 2012 to 11.1% in 2016, before increasing slightly to around 11.9% in 2019. Figure \@ref(fig:fig2) shows share of insured population, on the other hand, has continued to increase from around 71.4% of the population in 2012 to around 78% in 2019, remaining fairly constant since 2016.
 
 Figure \@ref(fig:fig2) also shows the distribution of insurance coverage used by people. Employer-Provided Insurance makes up the largest share of insured population while Direct Purchase make up the smallest share from 2012 to 2019. However, the share of Medicaid has increased since 2014 while the share of Employer-Provided Insurance has started to reduce since 2013, before increase slightly till 2019. 
 
