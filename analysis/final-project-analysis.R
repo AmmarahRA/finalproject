@@ -77,6 +77,8 @@ sum_stat <- describe(final.data[ , c('ins_employer', 'ins_direct', 'ins_medicaid
 sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
 
 rownames(sum_stat) <- c("Employer-Provided", "Direct Purchase", "Medicaid", "Medicare", "Uninsured")
+emp_mean<- as.integer(sum_stat$mean[1])
+maid_mean<-as.integer(sum_stat$mean[3])
 
 #health status according to medicaid expansion and health plan
 
