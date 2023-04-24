@@ -36,7 +36,11 @@ This is also using data for the state of Kentucky as the treatment variable as t
 
 For insurance data, it is using data from United States Census Bureau for the years 2012-2019 on the different types health-care coverage being used by the population. It is also using data from the Kaiser Family Foundation to determine the states which have expanded Medicaid and which have not to better compare the impact of Medicaid expansion on health. In particular, it is looking at the share of uninsured and insured, including distribution of insurance types, amongst the entire adult population to understand the effect of Medicaid expansion on health. 
 
+\newpage
+
 # Data Analysis 
+
+Table \@ref(tab:table1) includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r round(sum_stat$mean[1])` and the second-most coverage is provided by Medicaid with a mean of `r round(sum_stat$mean[3])` over the years and across all states.
 
 ```{r, include=FALSE}
 sum_stat
@@ -51,10 +55,6 @@ knitr::kable(sum_stat,
              booktabs = TRUE) %>%
   kable_styling(latex_options = c("hold_position"))
 ```
-
-Table \@ref(tab:table1) above includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r round(sum_stat$mean[1])` and the second-most coverage is provided by Medicaid with a mean of `r round(sum_stat$mean[3])` over the years and across all states. 
-
-\newpage 
 
 Looking at the difference in average share of insured and uninsured in the population according to States can give a better understanding of insurance distribution and its impact on health. Table \@ref(tab:table3) includes a summary of the share of insurance of insurance distribution for States which have not expanded Medicaid and Table \@ref(tab:table4) shows a summary for the States that have expanded Medicaid since 2014. The share of insured people amongst Medicaid expanded states is higher at `r round(tab_e$avg_ins[40], 2)`% compared to `r round(tab_ne$avg_ins[13], 2)`% for states which not expanded Medicaid. This corresponds to better health ratings given by people in states with Medicaid expansion as shown in Table \@ref(tab:table2). 
 
@@ -111,30 +111,32 @@ knitr::kable(health_stats,
 
 The Figures \@ref(fig:fig1) and \@ref(fig:fig2) show the share of uninsured population and insured population respectively. As can be seen in Figure \@ref(fig:fig1), the share of uninsured population has fallen significantly from around 18.7% in 2012 to 11.1% in 2016, before increasing slightly to around 11.9% in 2019. Figure \@ref(fig:fig2) shows share of insured population, on the other hand, has continued to increase from around 71.4% of the population in 2012 to around 78% in 2019, remaining fairly constant since 2016.
 
-Figure \@ref(fig:fig2) also shows the distribution of insurance coverage used by people. Employer-Provided Insurance makes up the largest share of insured population while Direct Purchase make up the smallest share from 2012 to 2019. However, the share of Medicaid has increased since 2014 while the share of Employer-Provided Insurance has started to reduce since 2013, before increase slightly till 2019. 
-
 ```{r fig1, include=T, eval=T, echo=F, fig.cap="Share of Uninsured Population"}
 fig1
 ```
 
 \newpage 
 
+Figure \@ref(fig:fig2) also shows the distribution of insurance coverage used by people. Employer-Provided Insurance makes up the largest share of insured population while Direct Purchase make up the smallest share from 2012 to 2019. However, the share of Medicaid has increased since 2014 while the share of Employer-Provided Insurance has started to reduce since 2013, before increase slightly till 2019. 
+
 ```{r fig2, include=T, eval=T, echo=F, fig.cap="Share of Insurance Distribution"}
 fig2
+```
+
+\newpage 
+
+```{r fig3, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status with(out) Medicaid Expansion"}
+fig3
 ```
 
 As shown in Figure \@ref(fig:fig3), more people (amongst lower income groups) reported a better rating for their health status after Medicaid expansion, compared to before. Approximately 100 more people rated their health status '1' which corresponds to 'excellent health' after 2014 while 150 more rated '2' corresponding to 'very good health' while around 200 more rated their health as '3', corresponding to 'good health' and around 400 more people rated their health as '4' or 'fair'. The figure also shows that around 50 more people have rated their health status as 'poor' after the Medicaid expansion. This could be due to the larger number of observations used for after Medicaid expansion compared to before. However, this increase is small compared to the increase in positive ratings. 
 
 \newpage
 
-```{r fig3, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status with(out) Medicaid Expansion"}
-fig3
-```
-
+Figure \@ref(fig:fig4) shows self-reported health status of the population based on whether they have any kind of health coverage, including health insurance, prepaid plans such as HMOs, or government plans such as Medicare, or Indian Health Service. The graph shows that people with some form of health coverage tend to report a better health status compared to those without health coverage, indicating that health insurance could improve the quality of health. While the graph also shows more people with health coverage reporting their health as '5' meaning 'poor', it could due to more people with pre-existing health conditions or poor health enrolling in health coverage plans compared to healthy people.
 
 ```{r fig4, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status and Health Care Coverage"}
 fig4
 ```
 
 
-Figure \@ref(fig:fig4) shows self-reported health status of the population based on whether they have any kind of health coverage, including health insurance, prepaid plans such as HMOs, or government plans such as Medicare, or Indian Health Service. The graph shows that people with some form of health coverage tend to report a better health status compared to those without health coverage, indicating that health insurance could improve the quality of health. While the graph also shows more people with health coverage reporting their health as '5' meaning 'poor', it could due to more people with pre-existing health conditions or poor health enrolling in health coverage plans compared to healthy people.
