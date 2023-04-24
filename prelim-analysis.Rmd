@@ -139,4 +139,6 @@ Figure \@ref(fig:fig4) shows self-reported health status of the population based
 fig4
 ```
 
+# Conclusion 
 
+The results from the above analysis show how health insurance, particularly Medicaid expansion, affects the health status of lower income individuals. People with health coverage, on average, report marginally better health status than those that do not have any health coverage and Medicaid expansion of 2014 led to a higher share of the adult population being insured at `r round(tab_e$avg_ins[40], 2)`% compared to `r round(tab_ne$avg_ins[13], 2)`%. While the difference in average health status may not appear significant, looking at the way Medicaid expansion improved health coverage for low income adults,it can be concluded that Medicaid expansion (and health insurance) is beneficial to people in improving their accessability to health insurance and thus, improve their health. 
