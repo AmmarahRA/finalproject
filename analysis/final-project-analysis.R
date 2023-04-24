@@ -17,7 +17,7 @@ final.data <- final.data %>% mutate(perc_dir = (ins_direct/adult_pop)*100,
 fig1 <- final.data %>% group_by(year) %>% 
   summarise(avg_unins = mean(perc_unins)) %>%
   ggplot(aes(x = year, y = avg_unins)) + 
-  geom_line() +
+  geom_line() + geom_point() + 
   labs(title = "Share of Uninsured Population", x = "Year", y = "Percentage Uninsured") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
@@ -35,7 +35,7 @@ fig2 <- final.data %>% group_by(year) %>%
                names_to = "category",
                values_to = "percentage") %>%
   ggplot(aes(x = year, y = percentage, fill = category)) +
-  geom_col(position = "dodge", width = 0.8) +
+  geom_col(position = "dodge", width = 0.8) 
   labs(title = "Share of Insurance Distribution ", x = "Year",
        y = "Percentage Insured", fill = "Insurance Type") +
   scale_fill_discrete(name = "Insurance Type",
