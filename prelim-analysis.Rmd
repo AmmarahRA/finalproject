@@ -47,12 +47,13 @@ options(knitr.kable.NA = 0, scipen = 999)
 knitr::kable(sum_stat, 
              col.names=c("Observations", "Mean", "Standard Deviation", "Minimum", "Maximum"),
              format.args = list(big.mark=","), 
-             caption = "Insurance Plan Summary Statistics",
+             caption = "Insurance Plan Summary Statistics", align = "c",
+             row
              booktabs = TRUE) %>%
   kable_styling(latex_options = c("hold_position"))
 ```
 
-Table \@ref(tab:table1) above includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r sum_stat$mean[1]` and the second-most coverage is provided by Medicaid with a mean of `r round(sum_stat$mean[3],2)` over the years and across all states. 
+Table \@ref(tab:table1) above includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r round(sum_stat$mean[1])` and the second-most coverage is provided by Medicaid with a mean of `r round(sum_stat$mean[3])` over the years and across all states. 
 
 \newpage 
 
@@ -66,7 +67,7 @@ options(knitr.kable.NA = 0)
 knitr::kable(tab_ne, 
              col.names=c("State", "Average Insured","Average Uninsured", 
                          "Average Direct Purchase", "Average Employer-Provided", "Average Medicaid"),
-             format.args = list(big.mark=","), digits = 2,
+             format.args = list(big.mark=","), digits = 2, align = "c",
              caption = "Average Share of Insurance without Medicaid Expansion",
              booktabs = TRUE) %>%
   kable_styling(latex_options = c("scale_down", "hold_position"))
@@ -83,7 +84,7 @@ knitr::kable(tab_e,
              col.names=c("State", "Average Insured","Average Uninsured", 
                          "Average Direct Purchase", "Average Employer-Provided", "Average Medicaid"),
              format.args = list(big.mark=","), 
-             digits = 2,
+             digits = 2, align = "c",
              caption = "Average Share of Insurance with Medicaid Expansion",
              booktabs = TRUE) %>%
   kable_styling(latex_options = c("scale_down", "hold_position"))
@@ -102,7 +103,7 @@ options(knitr.kable.NA = 0)
 knitr::kable(health_stats, 
              col.names=c("Medicaid Expansion", "Observations","Average Health Status", 
                          "Standard Deviation", "Lower Interval", "Upper Interval"),
-             digits = 3,
+             digits = 3, align = "c",
              format.args = list(big.mark=","), 
              caption = "Average Health Status Ratings",
              booktabs = TRUE) %>%
