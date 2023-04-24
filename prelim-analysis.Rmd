@@ -133,7 +133,7 @@ As shown in Figure \@ref(fig:fig3), more people (amongst lower income groups) re
 
 \newpage
 
-Figure \@ref(fig:fig4) shows self-reported health status of the population based on whether they have any kind of health coverage, including health insurance, prepaid plans such as HMOs, or government plans such as Medicare, or Indian Health Service. The graph shows that people with some form of health coverage tend to report a better health status compared to those without health coverage, indicating that health insurance could improve the quality of health. While the graph also shows more people with health coverage reporting their health as '5' meaning 'poor', it could due to more people with pre-existing health conditions or poor health enrolling in health coverage plans compared to healthy people.
+Figure \@ref(fig:fig4) shows self-reported health status of the population based on whether they have any kind of health coverage, including health insurance, prepaid plans such as HMOs, or government plans such as Medicare, or Indian Health Service. The graph shows that people with some form of health coverage tend to report a better health status compared to those without health coverage, indicating that health insurance could improve the quality of health. While the graph also shows more people with health coverage reporting their health as '5' meaning 'poor', it could be due to more people with pre-existing health conditions or poor health enrolling in health coverage plans compared to healthy people.
 
 ```{r fig4, include=T, eval=T, echo=F, fig.cap="Self Reported Health Status and Health Care Coverage"}
 fig4

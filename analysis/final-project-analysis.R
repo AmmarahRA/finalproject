@@ -64,7 +64,7 @@ fig4<- health_data %>% filter(GENHLTH != '9' & HLTHPLN1 == '1' | HLTHPLN1 == '2'
   geom_bar(aes(fill = as.factor(HLTHPLN1)), position = "dodge") +
   scale_fill_discrete(name = "Health Coverage",
                       labels = c("Yes", "No")) +
-  labs( x = "Health Status Rating",
+  labs(x = "Health Status Rating",
        y = "Number of People") + 
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) 
@@ -72,8 +72,11 @@ fig4
 
 #summary stats of insurance
 
-sum_stat <- describe(final.data[ , c('ins_employer', 'ins_direct', 'ins_medicaid', 'ins_medicare', 'uninsured')])
+sum_stat <- describe(final.data[ , c('ins_employer', 'ins_direct', 'ins_medicaid', 
+                                     'ins_medicare', 'uninsured')])
 sum_stat <- sum_stat %>% select(n, mean, sd, min, max)
+
+rownames(sum_stat) <- c("Employer-Provided", "Direct Purchase", "Medicaid", "Medicare", "Uninsured")
 
 #health status according to medicaid expansion and health plan
 
