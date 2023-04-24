@@ -6,9 +6,9 @@ health_data <- read.delim('data/output/health_data.txt')
 #Data Summary 
 final.data <- final.data %>% mutate(insured = ins_employer + ins_direct +
                                                     ins_medicaid + ins_medicare)
-final.data <- final.data %>% mutate(perc_dir = (ins_direct/insured)*100,
-                                    perc_empl = (ins_employer/insured)*100,
-                                    perc_mcaid = (ins_medicaid/insured)*100,
+final.data <- final.data %>% mutate(perc_dir = (ins_direct/adult_pop)*100,
+                                    perc_empl = (ins_employer/adult_pop)*100,
+                                    perc_mcaid = (ins_medicaid/adult_pop)*100,
                                     perc_ins = (insured/adult_pop)*100,
                                     perc_unins = (uninsured/adult_pop)*100)
 
