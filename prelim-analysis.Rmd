@@ -40,7 +40,7 @@ For insurance data, it is using data from United States Census Bureau for the ye
 
 # Data Analysis 
 
-Table \@ref(tab:table1) includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r sum_stat$mean[1]` and the second-most coverage is provided by Medicaid with a mean of `r sum_stat$mean[3]` over the years and across all states.
+Table \@ref(tab:table1) includes the summary statistics of the data on insurance distribution in the US. It shows that a majority of the population is covered under Employer-Provided Insurance with a mean of `r emp_mean` and the second-most coverage is provided by Medicaid with a mean of `r maid_mean` over the years and across all states.
 
 ```{r, include=FALSE}
 sum_stat
